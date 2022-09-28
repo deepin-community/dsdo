@@ -1,0 +1,7 @@
+name    dansk
+charset iso8859-1
+
+special         ' -** - -** . -**
+soundslike      dansk
+
+run-together

@@ -1,0 +1,216 @@
+Description: Add aspell rules and hints
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2010-03-10
+--- /dev/null
++++ b/new_aspell/da.dat
+@@ -0,0 +1,5 @@
++name da
++charset iso8859-1
++soundslike da
++run-together true
++special ' -** - -** . -**
+--- /dev/null
++++ b/new_aspell/da.multi
+@@ -0,0 +1 @@
++add da.rws
+--- /dev/null
++++ b/new_aspell/danish.alias
+@@ -0,0 +1 @@
++add da.multi
+--- /dev/null
++++ b/new_aspell/dansk.alias
+@@ -0,0 +1 @@
++add da.multi
+--- /dev/null
++++ b/new_aspell/da_phonet.dat
+@@ -0,0 +1,147 @@
++version 0.1-2002.12.15-3
++
++# Koder:
++#  ^ = start på ord
++#  $ = slut på ord
++#  < = kør rettelsen tilbage i bufferen
++
++# fra for eksempel aftage, det udtages avtage
++AA<                  Å
++ACTION               AKSJON
++AF<                  AV
++ASIE<                ASJE
++A                    A
++
++# B udtales ofte som V - især på jysk
++# eks. Han løv en tur (løb) 
++#      Hva har du køvt (købt)
++BEDST<               BEST
++BORD<                BOR
++BRYST<               BRØST
++BUREAU               BYRO
++B                    B
++
++# C udtales nogengange som K, andre gange som S og i få tilfælde som SJ
++# CK bruges ofte til at ændre lyden på det foregående (f.eks ren A lyd)
++# ie. HACK (A lyd) vs HAK (AH lyd)
++# Der er regler for hvornår CH udtales som TJ eller SJ
++# Det samme er der for C's udtale
++#
++# Kenneth vil gerne have "ci -> cji" ind, men det komplicerer strengen i stedet
++# for at reducere den, og det siges ikke sådan på "almindeligt" dansk (læs: af
++# Jacob).
++#
++# acceleration -> akseleration
++# acceptere    -> akseptere
++#
++CC<                  KS
++CK<                  K  
++CH<                  TJ
++CI<                  SI
++CO<                  KO
++CY<                  SY
++C<                   S
++#C                   C
++
++# D udtales ofte blødt/stumt - regler?
++#
++# Stumt G
++
++DIG^$                DAJ
++DIG<                 DI
++D$                   _
++D                    D
++
++EAUX<                O
++EAU<                 O
++EJ$<                 AJ
++EU<                  ØV
++E                    E
++
++É                    E
++
++È                    E
++
++FEDT<                FET
++F                    F
++
++G                    G
++
++HJ^<                 J
++HÅRD<                HÅR
++HÅND<                HÅN
++H                    H
++
++ION<                 JON
++IND^<                IN
++I                    I
++
++J                    J
++
++K                    K
++
++# Stumt G
++LIG<                 LI
++L                    L
++
++MAND<                MAN
++MIG^$                MAJ
++M                    M
++
++N                    N
++
++OST                  ÅST
++O                    O
++
++Ó                    O
++
++PH<                  F
++P                    P
++
++Q<                   KU
++
++REGN<                REJN
++RUG<                 RU
++RYG                  RØG
++R                    R
++
++SH<                  SJ
++SIG^$                SAJ
++SKIND<               SKIN
++S'S<$                S
++S                    S
++
++TION                 SJON
++TZ<                  TS
++T                    T
++
++U                    U
++
++Ü<                   Y
++
++V                    V
++
++W<                   V
++
++X'S<                 KS
++X<                   KS
++
++YKK<                 ØKK
++YND<                 ØND
++Y                    Y
++
++Z'S<                 S
++Z<                   S
++#Z                   Z
++
++Æ                    Æ
++
++Ä<                   Æ
++
++# eks. Han løv en tur (løb) 
++ØB<                  ØV
++Ø                    Ø
++
++Ö<                   Ø
++
++Å                    Å
+--- /dev/null
++++ b/new_aspell/Makefile
+@@ -0,0 +1,40 @@
++LANG=da_DK.ISO8859-1
++
++sprog=dansk
++sprog_en=Danish
++sprog_en_lower_case=danish
++language_code=da
++country_code=DK
++
++lang=da
++version=1.6.18
++
++dictdir=`aspell dump config | grep '^\# dict-dir current: ' | cut -d' ' -f4`
++datadir=`aspell dump config | grep '^\# data-dir current: ' | cut -d' ' -f4`
++
++all: $(language_code).rws $(language_code).dat $(language_code)_phonet.dat
++
++install: $(language_code).dat $(language_code)_phonet.dat $(language_code).cwl
++	install -o root -g root -m 0644 $(language_code).dat        $(datadir)
++	install -o root -g root -m 0644 $(language_code)_phonet.dat $(datadir)
++	install -o root -g root -m 0644 $(language_code)            $(dictdir)
++	ln -fs $(datadir)/$(language_code).dat        $(datadir)/$(language_code)_$(country_code).dat || true
++	ln -fs $(datadir)/$(language_code)_phonet.dat $(datadir)/$(language_code)_$(country_code)_phonet.dat || true
++	ln -fs $(dictdir)/$(language_code).cwl            $(dictdir)/$(language_code)_$(country_code) || true
++	ln -fs $(datadir)/$(language_code).dat        $(datadir)/$(sprog_en_lower_case).dat || true
++	ln -fs $(datadir)/$(language_code)_phonet.dat $(datadir)/$(sprog_en_lower_case)_phonet.dat || true
++	ln -fs $(dictdir)/$(language_code).cwl            $(dictdir)/$(sprog_en_lower_case) || true
++
++$(language_code).cwl: $(language_code).dat $(language_code)_phonet.dat ../words-$(language_code)
++	(cat ../words-$(language_code); \
++		egrep '^[-'"'"'[:lower:][:upper:].]+$$' ../words-$(language_code).excluded ) | \
++		prezip -s > $(language_code).cwl
++
++$(language_code).rws: $(language_code).cwl
++	precat $(language_code).cwl | \
++		aspell --local-data-dir=./ \
++		--lang=$(language_code) \
++		create master ./$(language_code).rws
++
++clean:
++	rm -f $(language_code).cwl $(language_code).rws

@@ -1,0 +1,91 @@
+Description: Enable commented-out ispell rules
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2010-03-10
+--- a/ispell/Makefile
++++ b/ispell/Makefile
+@@ -9,46 +9,42 @@
+ lang=da
+ version=1.6.36
+ 
+-all:
+-	@echo Please use the ispell package to build the dictionary for Ispell.
+-	@exit 1
+-
+-#installdir=`ispell -vv | grep LIBDIR | cut -d'"' -f2`
+-#
+-#all: maskbits $(sprog).hash
+-#
+-#maskbits:
+-#	@test "`ispell -vv | grep MASKBITS`" != ""              || ( echo Ispell should be compiled with MASKBITS set to at least 64. ; exit -2 )
+-#	@test `ispell -vv | grep MASKBITS | cut -d= -f2` -ge 64 || ( echo Ispell should be compiled with MASKBITS set to at least 64. ; exit -3 )
+-#
+-#$(sprog)-fake.hash: maskbits $(sprog).aff
+-#	echo 'QQQQQQQQ' > $(sprog)-fake
+-#	buildhash -s $(sprog)-fake $(sprog).aff $(sprog)-fake.hash
+-#
+-#words-$(language_code): ../words-$(language_code)
+-#	egrep -v '[/.: +]' ../words-$(language_code) | sort -u > words-$(language_code)
+-#
+-#words-$(language_code).munched: maskbits words-$(language_code) $(sprog).aff
+-#	munchlist -l $(sprog).aff -v < words-$(language_code) > words-$(language_code).munched
+-#
+-#words-$(language_code)-in_ispell_list: maskbits $(sprog)-fake.hash words-$(language_code).munched
+-#	ispell -e -d ./$(sprog)-fake < words-$(language_code).munched | tr ' ' '\n' | sort -u > words-$(language_code)-in_ispell_list
+-#
+-#words-$(language_code)-missing_in_ispell_list: words-$(language_code) words-$(language_code)-in_ispell_list
+-#	diff words-$(language_code) words-$(language_code)-in_ispell_list | grep '^< ' | cut -c3- | egrep -v '[/ .]' > words-$(language_code)-missing_in_ispell_list
+-#
+-#words-$(language_code).complete: words-$(language_code)-missing_in_ispell_list words-$(language_code).munched
+-#	sort -u words-$(language_code)-missing_in_ispell_list words-$(language_code).munched > words-$(language_code).complete
+-#
+-#$(sprog).hash: maskbits words-$(language_code).complete $(sprog).aff
+-#	buildhash words-$(language_code).complete $(sprog).aff $(sprog).hash
+-#
+-#install: maskbits $(sprog).hash $(sprog).aff
+-#	install -o root -g root -m 0644 $(sprog).hash $(installdir)
+-#	install -o root -g root -m 0644 $(sprog).aff  $(installdir)
+-#	ln -fs $(installdir)/$(sprog).hash $(installdir)/$(language_code)_$(country_code).hash
+-#	ln -fs $(installdir)/$(sprog).aff  $(installdir)/$(language_code)_$(country_code).aff
+-#
+-#clean:
+-#	rm -f words-$(language_code).complete.stat $(sprog).hash words-$(language_code).complete.cnt *~ $(sprog)-fake $(sprog)-fake.cnt $(sprog)-fake.stat $(sprog)-fake.hash words-$(language_code) words-$(language_code)-in_ispell_list words-$(language_code)-missing_in_ispell_list words-$(language_code).complete words-$(language_code).munched
+-#
++installdir=`ispell -vv | grep LIBDIR | cut -d'"' -f2`
++
++all: maskbits $(sprog).hash
++
++maskbits:
++	@test "`ispell -vv | grep MASKBITS`" != ""              || ( echo Ispell should be compiled with MASKBITS set to at least 64. ; exit -2 )
++	@test `ispell -vv | grep MASKBITS | cut -d= -f2` -ge 64 || ( echo Ispell should be compiled with MASKBITS set to at least 64. ; exit -3 )
++
++$(sprog)-fake.hash: maskbits $(sprog).aff
++	echo 'QQQQQQQQ' > $(sprog)-fake
++	buildhash -s $(sprog)-fake $(sprog).aff $(sprog)-fake.hash
++
++words-$(language_code): ../words-$(language_code)
++	egrep -v '[/.: +]' ../words-$(language_code) | sort -u > words-$(language_code)
++
++words-$(language_code).munched: maskbits words-$(language_code) $(sprog).aff
++	munchlist -l $(sprog).aff -v < words-$(language_code) > words-$(language_code).munched
++
++words-$(language_code)-in_ispell_list: maskbits $(sprog)-fake.hash words-$(language_code).munched
++	ispell -e -d ./$(sprog)-fake < words-$(language_code).munched | tr ' ' '\n' | sort -u > words-$(language_code)-in_ispell_list
++
++words-$(language_code)-missing_in_ispell_list: words-$(language_code) words-$(language_code)-in_ispell_list
++	diff words-$(language_code) words-$(language_code)-in_ispell_list | grep '^< ' | cut -c3- | egrep -v '[/ .]' > words-$(language_code)-missing_in_ispell_list
++
++words-$(language_code).complete: words-$(language_code)-missing_in_ispell_list words-$(language_code).munched
++	sort -u words-$(language_code)-missing_in_ispell_list words-$(language_code).munched > words-$(language_code).complete
++
++$(sprog).hash: maskbits words-$(language_code).complete $(sprog).aff
++	buildhash words-$(language_code).complete $(sprog).aff $(sprog).hash
++
++install: maskbits $(sprog).hash $(sprog).aff
++	install -o root -g root -m 0644 $(sprog).hash $(installdir)
++	install -o root -g root -m 0644 $(sprog).aff  $(installdir)
++	ln -fs $(installdir)/$(sprog).hash $(installdir)/$(language_code)_$(country_code).hash
++	ln -fs $(installdir)/$(sprog).aff  $(installdir)/$(language_code)_$(country_code).aff
++
++clean:
++	rm -f words-$(language_code).complete.stat $(sprog).hash words-$(language_code).complete.cnt *~ $(sprog)-fake $(sprog)-fake.cnt $(sprog)-fake.stat $(sprog)-fake.hash words-$(language_code) words-$(language_code)-in_ispell_list words-$(language_code)-missing_in_ispell_list words-$(language_code).complete words-$(language_code).munched words-$(language_code).stat
++

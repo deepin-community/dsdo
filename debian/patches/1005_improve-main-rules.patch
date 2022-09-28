@@ -1,0 +1,61 @@
+Description: Improve main rules to include now-enabled nw-aspell and ispell
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2010-03-10
+--- a/Makefile
++++ b/Makefile
+@@ -12,37 +12,51 @@
+ #-----------------------------------------------------------------------------
+ # Build rules:
+ 
+-all: words aspell ispell
++all: words new-aspell ispell myspell
+ 
+ words: words-$(language_code)
+ 
+ words-$(language_code): words-$(language_code).sq unsq
+ 	./unsq < words-$(language_code).sq > words-$(language_code)
++	./unsq < words-$(language_code).excluded.sq > words-$(language_code).excluded
+ 
+ aspell: words
+ 	$(MAKE) -C aspell all
+ 
++new-aspell: words
++	$(MAKE) -C new_aspell all
++
+ ispell: words
+ 	$(MAKE) -C ispell all
+ 
++myspell: words
++	$(MAKE) -C myspell all
++
+ #-----------------------------------------------------------------------------
+ # Installation rules:
+ 
+-install: install-words install-aspell install-ispell
++install: install-words install-new-aspell install-ispell
+ 
+ install-words: words
+ 
+ install-aspell: aspell
+ 	$(MAKE) -C aspell install
+ 
++install-new-aspell: new-aspell
++	$(MAKE) -C new_aspell install
++
+ install-ispell: ispell
+ 	$(MAKE) -C ispell install
+ 
++install-myspell: myspell
++	$(MAKE) -C myspell install
++
+ #-----------------------------------------------------------------------------
+ # Cleanup rules:
+ 
+ clean:
+-	rm -f words-$(language_code)
++	rm -f words-$(language_code) words-$(language_code).excluded
+ 	$(MAKE) -C aspell clean
++	$(MAKE) -C new_aspell clean
+ 	$(MAKE) -C ispell clean
+-
++	$(MAKE) -C myspell clean

@@ -1,0 +1,37 @@
+LANG=da_DK.ISO8859-1
+
+sprog=dansk
+sprog_en=Danish
+sprog_en_lower_case=danish
+language_code=da
+country_code=DK
+
+lang=da
+version=1.6.36
+
+all:
+	@echo Please use the aspell or new_aspell package to build the dictionary for Aspell.
+	@exit 1
+
+#dictdir=`aspell dump config | grep '^\# dict-dir current: ' | cut -d' ' -f4`
+#datadir=`aspell dump config | grep '^\# data-dir current: ' | cut -d' ' -f4`
+#
+#all: $(sprog) $(sprog).dat $(sprog)_phonet.dat
+#
+#install: $(sprog).dat $(sprog)_phonet.dat $(sprog)
+#	install -o root -g root -m 0644 $(sprog).dat        $(datadir)
+#	install -o root -g root -m 0644 $(sprog)_phonet.dat $(datadir)
+#	install -o root -g root -m 0644 $(sprog)            $(dictdir)
+#	ln -fs $(datadir)/$(sprog).dat        $(datadir)/$(language_code)_$(country_code).dat || true
+#	ln -fs $(datadir)/$(sprog)_phonet.dat $(datadir)/$(language_code)_$(country_code)_phonet.dat || true
+#	ln -fs $(dictdir)/$(sprog)            $(dictdir)/$(language_code)_$(country_code) || true
+#	ln -fs $(datadir)/$(sprog).dat        $(datadir)/$(sprog_en_lower_case).dat || true
+#	ln -fs $(datadir)/$(sprog)_phonet.dat $(datadir)/$(sprog_en_lower_case)_phonet.dat || true
+#	ln -fs $(dictdir)/$(sprog)            $(dictdir)/$(sprog_en_lower_case) || true
+#
+#$(sprog): $(sprog).dat $(sprog)_phonet.dat ../words-$(language_code)
+#	tr ' ' '\012' < ../words-$(language_code) | egrep -v '[0-9#,`/+:]' | sort -u | aspell --local-data-dir=./ --lang=$(sprog) create master ./$(sprog)
+#
+#clean:
+#	rm -f $(sprog)
+#

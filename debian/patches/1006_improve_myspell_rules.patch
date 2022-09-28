@@ -1,0 +1,146 @@
+Description: Improve myspell rules
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2010-03-10
+--- a/Makefile
++++ b/Makefile
+@@ -16,9 +16,10 @@
+ 
+ words: words-$(language_code)
+ 
+-words-$(language_code): words-$(language_code).sq unsq
++words-$(language_code): words-$(language_code).sq words-$(language_code).excluded.sq words-$(language_code).no-compound.sq unsq
+ 	./unsq < words-$(language_code).sq > words-$(language_code)
+ 	./unsq < words-$(language_code).excluded.sq > words-$(language_code).excluded
++	./unsq < words-$(language_code).no-compound.sq > words-$(language_code).no-compound
+ 
+ aspell: words
+ 	$(MAKE) -C aspell all
+@@ -55,7 +56,7 @@
+ # Cleanup rules:
+ 
+ clean:
+-	rm -f words-$(language_code) words-$(language_code).excluded
++	rm -f words-$(language_code) words-$(language_code).excluded words-$(language_code).no-compound
+ 	$(MAKE) -C aspell clean
+ 	$(MAKE) -C new_aspell clean
+ 	$(MAKE) -C ispell clean
+--- a/myspell/Makefile
++++ b/myspell/Makefile
+@@ -16,12 +16,21 @@
+ ../ispell/words-$(language_code).complete ../ispell/words-$(language_code).complete.cnt:
+ 	make -C ../ispell words-$(language_code).complete
+ 
+-$(language_code)_$(country_code).dic: ../ispell/words-$(language_code).complete
+-	cat ../ispell/words-$(language_code).complete.cnt ../ispell/words-$(language_code).complete > $(language_code)_$(country_code).dic
++words-$(language_code).complete: ../ispell/words-$(language_code).complete ../words-$(language_code).no-compound
++	cat ../ispell/words-$(language_code).complete \
++		| perl ../debian/no-compound_marking.pl ../words-$(language_code).no-compound \
++		| LC_ALL=POSIX sort -u \
++		> $@
++
++words-$(language_code).complete.cnt: words-$(language_code).complete
++	wc -l < $^ > $@
++
++$(language_code)_$(country_code).dic: words-$(language_code).complete.cnt words-$(language_code).complete
++	cat words-$(language_code).complete.cnt words-$(language_code).complete > $@
+ 
+ install: $(language_code)_$(country_code).dic $(language_code)_$(country_code).aff
+ 	install -o root -g root -m 0644 $(language_code)_$(country_code).dic $(installdir)
+ 	install -o root -g root -m 0644 $(language_code)_$(country_code).aff $(installdir)
+ 
+ clean:
+-	rm -f $(language_code)_$(country_code).dic
++	rm -f words-$(language_code).complete.cnt words-$(language_code).complete $(language_code)_$(country_code).dic
+--- /dev/null
++++ b/words-da.no-compound.sq
+@@ -0,0 +1,90 @@
++0A
++0a
++0B
++0b
++1egge
++0C
++0c
++0D
++0d
++1en
++3gang
++3ne
++2r
++1in
++2sse
++0E
++0e
++0É
++0é
++0F
++0f
++1lere
++0G
++0g
++0H
++0h
++1inanden
++1vad
++2em
++3randre
++2ilke
++6n
++3s
++0I
++0i
++0J
++0j
++1eres
++0K
++0k
++0L
++0l
++0M
++0m
++1ed
++1in
++2t
++0N
++0n
++0O
++0o
++0Ó
++0ó
++0P
++0p
++0Q
++0q
++0R
++0r
++0S
++0s
++1amme
++1ig
++2n
++3e
++2t
++1om
++0T
++0t
++0ude
++0V
++0v
++1ore
++4s
++0W
++0w
++0X
++0x
++0Y
++0y
++0Ü
++0ü
++0Z
++0z
++0Æ
++0æ
++0Ä
++0ä
++0Ö
++0ö

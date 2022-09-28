@@ -1,0 +1,17 @@
+Language: danish (Den Store Danske Ordliste)
+Hash-Name: dansk
+Casechars: [A-ZÆØÅÁÀĞÉÈËÊÍÜÄÖÓÔa-zæøåáàğéèëêíüäöóô]
+Not-Casechars: [^A-ZÆØÅÁÀĞÉÈËÊÍÜÄÖÓÔa-zæøåáàğéèëêíüäöóô]
+Otherchars: ['-]
+Many-Otherchars: yes
+Ispell-Args: -C -d dansk
+Additionalchars: æøåáàğéèëêíüäöóôÆØÅÁÀĞÉÈËÊÍÜÄÖÓÔ
+Coding-System: iso-8859-1
+Pspell-Ispell: da iso8859-1
+
+
+
+
+
+
+

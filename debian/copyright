@@ -1,0 +1,54 @@
+This is Den store danske ordliste (The Comprehensive Danish Dictionary)
+packaged for Debian GNU systems.
+
+Upstream source: http://da.speling.org/filer
+
+Upstream authors: Skåne Sjælland Linux User Group <bestyrelsen@sslug.dk>
+
+(Preferred means of contact is either http://da.speling.org/fejlmelding/
+ or Jacob Sparre Andersen <sparre@speling.org>)
+
+Files: debian/*
+Copyright: © 2004-2007 Jonas Smedegaard <dr@jones.dk>
+License: The Debian packaging information is under the GPL, version 2 or
+	 later
+
+Files: *
+Copyright: © 1998-2004 Skåne Sjælland Linux User Group <bestyrelsen@sslug.dk> and the contributors.
+License: GPL-2+
+  dsdo: The Comprehensive Danish Dictionary
+  © 1998-2004 Skåne Sjælland Linux User Group <bestyrelsen@sslug.dk> and the contributors.
+ .
+      This dictionary is free software; you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation; either version 2 of the License, or
+      (at your option) any later version.
+
+Files: *
+Copyright: © 1998-2004 Skåne Sjælland Linux User Group
+
+Copyright and licensing info, unsq:
+
+Files: unsq
+Copyright: © 2000 Björn Jacke <bjoern.jacke@gmx.de>
+License: GPL-2+
+  Copyright (C) 2000 Björn Jacke <bjoern.jacke@gmx.de>
+ .
+  This program comes with ABSOLUTELY NO WARRANTY; it may be copied or modified
+  under the terms of the GNU General Public License version 2 as published
+  by the Free Software Foundation.
+
+Files: ispell/dansk.aff
+Copyright: © 1997 Göran Andersson
+	   © 2000 Henrik Chr. Grove
+License: GPL-2+
+  Copyright (c) Henrik Chr. Grove 2000.
+  Copyright (c) Göran Andersson 1997.
+ .
+  This affix file is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+On Debian GNU systems, the GNU General Public License (GPL) version 2 can
+be found in /usr/share/common-licenses/GPL-2.

@@ -1,0 +1,16 @@
+# List of All Dictionaries to be Loaded by OpenOffice
+# ---------------------------------------------------
+# Each Entry in the list have the following space delimted fields
+#
+# Field 1: Entry Type "DICT" is the only supported entry type so far
+#
+# Field 2: Language code from Locale "en" or "de" or "pt" ...
+#
+# Field 3: Region Code from Locale "US" or "UK" or "PT"
+#
+# Field 4: Root name of Dictionary "english" or "en_US" or ...
+#          (do not add the .aff or .dic extensions to the name) 
+
+DICT en US en_US
+DICT da DK da_DK
+

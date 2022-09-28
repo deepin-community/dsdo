@@ -1,0 +1,16 @@
+name_english Danish
+lang da
+author:
+  name  Jacob Sparre Andersen
+  email sparre at sslug se
+copyright GPL
+version 1.6.36
+url http://da.speling.org/
+charset iso8859-1
+soundslike phonet
+run-together true
+special ' -** - -** . -**
+alias da dansk danish
+dict:
+  name da
+  add da

@@ -1,0 +1,43 @@
+Description: Enable commented-out myspell rules
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2010-03-10
+--- a/myspell/Makefile
++++ b/myspell/Makefile
+@@ -9,21 +9,19 @@
+ lang=da
+ version=1.6.36
+ 
+-all:
+-	@echo Please use the myspell package to build the dictionary for Myspell.
+-	@exit 1
+-
+-##installdir=`locate wordbook/dictionary.lst | sed 's:/dictionary.lst$$::'`
+-#
+-#all:
+-#	make -C ../ispell words-$(language_code).complete
+-#
+-#words-$(language_code)_$(country_code).dic: ../ispell/words-$(language_code).complete
+-#	cp ../ispell/words-$(language_code).complete words-$(language_code)_$(country_code).dic
+-#
+-#install: $(language_code)_$(country_code).dic $(language_code)_$(country_code).aff
+-#	install -o root -g root -m 0644 $(language_code)_$(country_code).dic $(installdir)
+-#	install -o root -g root -m 0644 $(language_code)_$(country_code).aff $(installdir)
+-#
+-#clean:
+-#
++#installdir=`locate wordbook/dictionary.lst | sed 's:/dictionary.lst$$::'`
++
++all: $(language_code)_$(country_code).dic $(language_code)_$(country_code).aff
++
++../ispell/words-$(language_code).complete ../ispell/words-$(language_code).complete.cnt:
++	make -C ../ispell words-$(language_code).complete
++
++$(language_code)_$(country_code).dic: ../ispell/words-$(language_code).complete
++	cat ../ispell/words-$(language_code).complete.cnt ../ispell/words-$(language_code).complete > $(language_code)_$(country_code).dic
++
++install: $(language_code)_$(country_code).dic $(language_code)_$(country_code).aff
++	install -o root -g root -m 0644 $(language_code)_$(country_code).dic $(installdir)
++	install -o root -g root -m 0644 $(language_code)_$(country_code).aff $(installdir)
++
++clean:
++	rm -f $(language_code)_$(country_code).dic

@@ -1,0 +1,81 @@
+#!/usr/bin/perl
+
+# sq(eeze) / unsq(eeze) - pre-compressor for sorted word lists
+# Copyright (C) 2000 Björn Jacke <bjoern.jacke@gmx.de>
+#
+# This program comes with ABSOLUTELY NO WARRANTY; it may be copied or modified
+# under the terms of the GNU General Public License version 2 as published
+# by the Free Software Foundation.
+
+# This is a `multi-call-program'. If it's called as `unsq' or `unsq.pl'
+# it decompresses -- otherwise it is in compress mode. Input and Output only
+# via STDIN and STDOUT. It does almost the same job as the sq/unsq from
+# Ispell -- just better ;-)
+#
+# PS: For best compression results use POSIX sorting order in spite of any
+#     other locale-depending sorting order (set LC_ALL and LC_COLLATE to POSIX)
+
+# version 1.0
+
+
+$size_word = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+$MAX_PREFIX = length($size_word)-1;
+
+
+sub trunc {
+
+	if ($word eq $prev) {
+		$same = length($word);
+	}
+	else {
+		$same = 0;
+		while (substr($word,$same,1) eq substr($prev,$same,1)) {
+			$same++;
+		}
+	}
+
+	if ($same > $MAX_PREFIX) {
+		$same = $MAX_PREFIX;
+	}
+
+	print STDOUT substr($size_word,$same,1);
+	print STDOUT substr($word,$same);
+
+	$prev = $word;
+}
+
+
+sub expand {
+
+	  # keep relevant part of previous word:
+	$prev = substr($prev, 0, index($size_word,(substr($word,0,1))) );
+	  # strip first (meta)-character from word:
+	$word = substr($word,1);
+	  # concatenate new word and name it prev ...
+	$prev = "$prev$word";
+	print STDOUT $prev;
+}
+
+
+
+######  main ######
+
+$0 =~ s/.*?unsq(\.pl)?$/unsq/i;
+
+$prev = "";
+$word = <stdin>;
+
+if ($0 eq "unsq") {
+	until ($word eq "") {
+		expand;
+		$word = <stdin>;
+	}
+}
+
+else {
+	until ($word eq "") {
+		trunc;
+		$word = <stdin>;
+	}
+}
+

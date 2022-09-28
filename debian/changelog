@@ -1,0 +1,425 @@
+dsdo (1.6.36-11.1) unstable; urgency=medium
+
+  * Non maintainer upload by the Reproducible Builds team.
+  * No source change upload to rebuild on buildd with .buildinfo files.
+
+ -- Holger Levsen <holger@debian.org>  Sat, 02 Jan 2021 00:47:34 +0100
+
+dsdo (1.6.36-11) unstable; urgency=medium
+
+  * Use UTF-8 in docs. Thanks Pander (Closes: #901384).
+  * Mark myspell-da Multi-Arch: foreign. Thanks multiarch hinter.
+  * Make copyright refer to /usr/share/common-licenses/GPL-2.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Fri, 06 Jul 2018 12:05:37 +0200
+
+dsdo (1.6.36-10) unstable; urgency=medium
+
+  * debian/control:
+    - Update Vcs-Browser and Vcs-Git for salsa migration.
+    - Bump Standards-Version. No changes required.
+  * Bump debhelper compat level to 10 (cdbs fails with level 11).
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Fri, 04 May 2018 16:28:05 +0200
+
+dsdo (1.6.36-9) unstable; urgency=medium
+
+  * debian/control{,.in}::myspell-da: Use Conflicts where needed.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Tue, 22 Sep 2015 11:59:15 +0200
+
+dsdo (1.6.36-8) unstable; urgency=medium
+
+  * debian/control{,.in}:
+    - Use Breaks rather than Conflicts.
+    - Break possible hunspell-da to avoid name collisions.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Mon, 21 Sep 2015 15:30:50 +0200
+
+dsdo (1.6.36-7) unstable; urgency=medium
+
+  * debian/rules: Do not store timestamps in gzipped files.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Thu, 02 Jul 2015 15:00:29 +0200
+
+dsdo (1.6.36-6) unstable; urgency=medium
+
+  * debian/rules: Build always in a reproducible and known to work
+    LC_ALL=C language environment
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Thu, 25 Jun 2015 15:02:19 +0200
+
+dsdo (1.6.36-5) unstable; urgency=medium
+
+  * debian/control: Fix dictionaries-common-dev Build-Depends. Needs at
+    least 1.23.2 because of ${aspell:Depends} and .remove handling.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Tue, 21 Oct 2014 12:15:56 +0200
+
+dsdo (1.6.36-4) unstable; urgency=medium
+
+  * debian/aspell-da.info-aspell: Fix Emacsen-Name spelling.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Mon, 20 Oct 2014 19:34:23 +0200
+
+dsdo (1.6.36-3) unstable; urgency=medium
+
+  * Change to use aspell-autobuildhash, making aspell-da arch:all.
+  * Make sure aspell master file is named da.rws on build. da.cwl
+    should be a prezip compressed wordlist.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Mon, 20 Oct 2014 18:06:43 +0200
+
+dsdo (1.6.36-2) unstable; urgency=medium
+
+  * Make aspell-da depend on aspell (>= 0.60.7~20110707-1.3), where
+    semi-multiarch settings are enabled.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Mon, 20 Oct 2014 11:00:16 +0200
+
+dsdo (1.6.36-1) unstable; urgency=low
+
+  [ Jonas Smedegaard ]
+  * Imported Upstream version 1.6.30
+  * Ease building with git-buildpackage: Git-ignore quilt .pc dir. Add
+    dpkg-source local-options.
+  * Update md5sum hint for new upstream 1.6.30 release.
+  * Update README.source to emphasize control.in file as *not* a
+    show-stopper for contributions, referring to wiki page for details.
+
+  [ Agustin Martin Domingo ]
+  * Use a perl script to handle compound flags. Much faster that original
+    bash script (Closes: #666670). This new build also (Closes: #764209).
+  * Imported Upstream version 1.6.36
+  * debian/rules: Update md5sum hint for new upstream 1.6.30 release.
+  * Unfuzz patches for 1.6.36 release.
+  * debian/control:
+    - Canonicalize Vcs-* headers.
+    - Add myself as Uploader.
+    - Bump Standards-Version. No changes required.
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Mon, 13 Oct 2014 19:23:51 +0200
+
+dsdo (1.6.25-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * dict.mk:
+    - Make sure myspell stuff is installed in /usr/share/hunspell
+      location.
+    - Make sure openoffice.org snippets are no longer installed
+      (Closes: #629077).
+  * debian/{rules,control.in,patches/1002_enable_ispell_rules.patch}:
+    - Make sure is built and run with new ispell (Closes: #620246).
+  * 1006_improve_myspell_rules.patch:
+    - Make sure POSIX locale is enforced in sorting (Closes: #607389).
+
+ -- Agustin Martin Domingo <agmartin@debian.org>  Tue, 13 Sep 2011 11:59:25 +0200
+
+dsdo (1.6.25-1) unstable; urgency=low
+
+  * New upstream release.
+  * Refresh patches and add DEP3 hints.
+  * Use source format 3.0 (quilt) (not CDBS snippet patchsys-quilt.mk).
+  * Drop most local CDBS snippets, and adjust CDBS usage in rules file
+    to both use very newest features and be backports-friendly.
+  * Stop build-depending on quilt or patchutils.
+  * Tighten build-dependency on debhelper and cdbs.
+  * Add README.source (and drop a couple of legacy notes).
+  * Add git-buildpackage config, enabling pristine-tar and tag signing.
+  * Refer to FSF website (not postal address) in local CDBS snippet
+    dict.mk.
+  * Add proper licensing header to debian/rules, and bump years.
+  * Drop duplicate clean rule: patched rules now preserved during clean.
+    Closes: bug#581328, thanks to Lucas Nussbaum.
+  * Update ispell info file:
+    + Fix add hash-name to Ispell-Args.
+    + Declare Many-Otherchars: yes (multiple dashes can occur).
+    + Strip superfluous Emacsen-Name and Extended-Character-Mode fields.
+  * Simplify wdanish info file: Strip all but Language and Hash-Name
+    (other fields are ignored anyway).
+  * Recode wordlist and ship it as UTF-8.
+    Closes: bug#573312, thanks to Jonas Häggqvist.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 13 May 2010 11:03:22 +0200
+
+dsdo (1.6.18-1) unstable; urgency=low
+
+  * New upstream release.
+  * Unfuzz patches.
+  * Update cdbs snippets:
+    + Restructure output of copyright-check.mk to match new proposed
+      copyright-format at
+      http://wiki.debian.org/Proposals/CopyrightFormat .
+    + Several minor improvements to upstream-tarball.mk.
+    + Add new local package-relations.mk to merge duplicate
+      build-dependencies and more.  Drop cleanup in debian/rules.
+    + Update debian/README.cdbs-tweaks.
+  * Update copyright hints.
+  * Add DEB_MAINTAINER_MODE in debian/rules (thanks to Romain Beauxis).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 05 Nov 2008 00:32:50 +0100
+
+dsdo (1.6.14-1) unstable; urgency=low
+
+  * New upstream release.
+  * Unfuzz patches.
+  * Packaging moved to collab-maint Git at Alioth. Update VCS-* hints.
+  * Update local cdbs snippets:
+    + Update copyright-check.mk to parse licensecheck output using perl:
+      + No longer randomly drops newlines
+      + More compact hint file (and ordered more like wiki-proposed new
+        copyright syntax).
+      + No longer ignore files without copyright.
+    + Drop wget options broken with recent versions of wget in
+      update-tarball.mk.
+    + Relax copyright-check to only warn about its discoveries.  Closes:
+      bug#487060, thanks to Lucas Nussbaum.
+    + Update dependency cleanup to strip cdbs 0.4.27 (not 0.4.27-1).
+    + Cosmetic updates to README.cdbs-tweaks.
+  * Update debian/copyright-hints.
+  * Bump debhelper compatibility level to 6.
+  * Semi-auto-update debian/control to update build-dependencies:
+      DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 23 Jun 2008 23:57:14 +0200
+
+dsdo (1.6.11-2) unstable; urgency=medium
+
+  * Update cdbs tweaks:
+    + Fix copyright-check to explicitly grep stdin (recent versions of grep
+      now use . per default).
+  * Set urgency=medium as this can cause FTBFS but has (theoretically) no
+    impact on packaged software so really shouldn't delay its move to testing.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 20 Feb 2008 22:38:15 +0100
+
+dsdo (1.6.11-1) unstable; urgency=low
+
+  * New upstream release.
+  * Unfuzz patches.
+  * Update cdbs tweaks:
+    + Major improvements to update-tarball (but none of them affect this
+      current package).
+    + Major improvements to copyright-check, including new versioned
+      build-dependency on devscripts.  Update debian/copyright_hints.
+    + Drop bts.mk (we are happy to receive bugreports also for
+      unofficial rebuilds of this package).
+    + Drop buildcore.mk override.  Set DEB_AUTO_UPDATE_DEBIAN_CONTROL
+      directly instead when needed.
+    + Update debian/README.cdbs-tweaks to no longer mention buildcore.mk
+      override.
+  * Semi-auto-update debian/control to update build-dependencies:
+    DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 17 Feb 2008 16:32:01 +0100
+
+dsdo (1.6.10-1) unstable; urgency=low
+
+  * New upstream release.
+  * Unfuzz patches.
+  * Bump standards-version to 3.7.3 (no changes needed).
+  * Bump dephelper compatibility to 5.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 22 Dec 2007 13:46:17 +0100
+
+dsdo (1.6.9-1) unstable; urgency=low
+
+  * New upstream release.
+  * Unfuzz patches.
+  * Move Homepage to own field (from pseudo-field in long description).
+  * Move X-Vcs-* control fields to Vcs-*.
+  * Rewrite debian/copyright to conform to proposed new format at
+    http://wiki.debian.org/Proposals/CopyrightFormat .
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 11 Oct 2007 23:53:20 +0200
+
+dsdo (1.6.8-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add XS-Vcs-Svn and XS-Vcs-Browser fields to debian/control.
+  * Update cdbs tweaks:
+    + Support non-dot repackaging delimiter in update-tarball.
+    + update-tarball needs cdbs 0.4.39 or newer (only relevant for
+      backports).
+  * Improve duplicate build-dependency cleanup in debian/rules, and
+    semi-auto-update debian/control:
+      DEB_BUILD_OPTIONS=cdbs-autoupdate fakeroot debian/rules pre-build
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 02 Sep 2007 15:04:39 +0200
+
+dsdo (1.6.7-1) unstable; urgency=low
+
+  * New uptream release.
+  * Switch to using the 1.6 branch (better proofread; seems recommended
+    upstream now).
+  * Update cdbs snippets:
+    + Minor fixes and improvements to upstream-tarball.mk.
+  * Declare (and cleanup) build-dependencies in debian/rules.
+  * Unfuzz patches.
+  * Add patch to use "no-compound_marking" for myspell. Closes:
+    bug#305927, #431566, thanks to Jacob Sparre Andersen and Martin
+    Leopold.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 03 Aug 2007 11:55:55 +0200
+
+dsdo (1.4.60-1) unstable; urgency=low
+
+  * New upstream release.
+  * Update local cdbs snippets:
+    + Replace auto-update.mk with (overload of) buildcore.mk.
+    + Add upstream-tarball.mk adding get-orig-source rule and more.
+    + Switch from simple-patchsys.mk to patchsys-quilt.mk.
+    + Fix buildinfo.mk to run only once.
+    + Divert bugreports only for non-Debian suites.
+    + Look also for "(c)" in copyright-check.mk, and avoid non-printable
+      characters.
+    + Check copyrights in prebuild (in clean it may choke on not yet
+      cleaned stuff), and make sure it runs only once.
+    + List non-binary files affected if discovering new copyrights.
+    + Add README.cdbs-tweaks documenting the added tweaks.
+    + Advertise README.cdbs-tweaks in debian/rules.
+  * Fix watch file to use suffix tgz (not tar.gz).
+  * Bump standards-version to 3.7.2 (no changes needed).
+  * Update debian/copyright:
+    + Change encoding to UTF-8 (was ISO8859-1).
+  * Have idanish and wdanish explicitly depend on debconf (apparently
+    not handled by installdeb-* scripts as intended). Thanks to lintian.
+  * Duplicate clean rules (they are unpatched at clean time).
+  * Explicitly symlink myspell dicts to force non-country symlinks.
+    Closes: bug#373738, thanks to Rene Engelhard.
+  * Semi-auto-update debian/control.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 22 Apr 2007 21:07:57 +0200
+
+dsdo (1.4.52-1) unstable; urgency=low
+
+  * New upstream release.
+  * Minor updates to local cdbs snippets (wrong namespaces).
+  * Add local cdbs snippet copyright-check.mk.
+  * Update debian/copyright:
+    + Add differing copyright holder for unsq and ispell/ispell.aff
+      (both still licensed as GPL), thanks to above cdbs snippet.
+    + Quote only minimally (to avoid changing FSF address).
+  * Simplify debian/watch to unfuck qa.debian.org status.
+  * Mention Homepage (not Website) in long descriptions.
+  * Define empty CDBS_BUILD_DEPENDS to avoid cdbs debian/control
+    auto-update causing build-dependency on build-essential (and thus
+    calm Debian ftpmasters scared that build-essential might one day not
+    be needed and break the world as we know it :-P ).
+  * Auto-update debian/control.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 28 Dec 2005 16:18:15 +0100
+
+dsdo (1.4.51-2) unstable; urgency=low
+
+  * Update debian/control only when DEB_BUILD_OPTIONS contains "update".
+  * Auto-update debian/control, and manually drop build-depending
+    bogusly on build-essential.
+  * Bump up standards-version to 3.6.2.
+  * Build-depend on ${misc:Depends} (not debconf) to pull in fallback to
+    virtual debconf-2.0.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri,  4 Nov 2005 22:05:32 +0100
+
+dsdo (1.4.51-1) unstable; urgency=low
+
+  * New upstream release.
+  * Adjust to newer aspell policy. Closes: bug#319619 (thanks to Martin
+    Leopold <leopold@diku.dk> for reporting, and to Ubuntu and Tollef
+    Fog Heen <tfheen@canonical.com> for a patch).
+  * Add debconf dependency fallback to debconf-2.0. Closes: bug#331809.
+  * Update debian/rules only if DEB_BUILD_OPTIONS contains "update".
+  * Auto-update debian/rules (and manually strip bogus build-dependency
+    on build-essential).
+  * Update root Makefile patch:
+    + Unsquelch also excluded words (they are unwanted by ispell but
+      aspell wants some of them).
+  * Update aspell-new Makefile patch (inspired by other packaging
+    scripts by same upstream):
+    + Bump up version (although seemingly unused).
+    + Simplify main command.
+    + Re-include some excluded words.
+  * Bump up standards version to 3.6.2 (no changes needed).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 14 Oct 2005 20:22:06 +0200
+
+dsdo (1.4.49-2) unstable; urgency=medium
+
+  * Use installdeb-aspell when packaging aspell-da. Closes: bug#295011,
+    #307469 (thanks to Brian Nelson <pyro@debian.org> and Christian
+    Borup <borup+debian@borup.com>).
+  * Patch source to generate new-aspell (and not the older aspell),
+    based on separately released source from same upstream.
+  * Adjust local dict cdbs snippet to include both english and native
+    aliases for aspell by default.
+  * Set urgency=medium as the aspell dictionary is practically worthless
+    as is.
+  * Use Debian BTS for bugreports (leftover from unofficial packaging).
+  * Use official upstream name "Den Store Danske Ordliste" in idanish
+    wdanish Debian-specific hint files.
+  * Tighten watch file to only ignore newer testing releases.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri,  6 May 2005 11:19:58 +0200
+
+dsdo (1.4.49-1) unstable; urgency=low
+
+  * New upstream release (thanks to Jacob Sparre Andersen
+    <sparre@nbi.dk>).
+  * Rewrite short and long descriptions based on updated text from
+    upstream README, and add upstream website.
+  * Add note on preferred means of contact to debian/copyright.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 21 Apr 2005 14:59:17 +0200
+
+dsdo (1.4.48-1) unstable; urgency=medium
+
+  * Official release. Closes: bug#237975 (thanks to  Rene Engelhard
+    <rene@debian.org>).
+  * Summary of changes from latest official release:
+    + Uses the more general dsdo source tarball (from same upstream).
+    + Includes myspell package.
+    + Uses cdbs (with local snippet intended for general use).
+  * Friendly takeover of ispell-da. Urgency medium to maybe reach sarge
+    in time.
+  * Update dict cdbs snippet for recent aspell 0.60 changes, and add
+    some sanity checking.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 26 Mar 2005 07:41:57 +0100
+
+dsdo (1.4.48-0.0.jones.1) unstable; urgency=low
+
+  * New upstream release.
+  * Link against newer aspell, and provide aspell6-dictionary (and not
+    aspell-dictionary).
+  * Add copyright info to debian/rules.
+  * Update local cdbs snippets:
+    + Fix invoking buildinfo.
+    + More silent BTS check for unofficial packaging.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 24 Mar 2005 11:32:41 +0100
+
+dsdo (1.4.43-0.0.jones.3) unstable; urgency=low
+
+  * Make funky new cdbs auto-update feature actually work: Enable before
+    including cdbs rules.
+  * Improve cdbs snippet dict.mk:
+    + Support native and generic language name being equal (english).
+    + Support multiple aliases (symlinks) to each language.
+    + Add some comments and hints.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 10 Oct 2004 14:17:18 +0200
+
+dsdo (1.4.43-0.0.jones.2) unstable; urgency=low
+
+  * Correct myspell dict (include leading count).
+  * Add watch file.
+  * Isolate upstream makefile tweaks using simple-patchsys.mk.
+  * Isolate and improve cdbs snippets bts.mk dict-mk and buildinfo.mk.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat,  9 Oct 2004 03:57:42 +0200
+
+dsdo (1.4.43-0.0.jones.1) unstable; urgency=low
+
+  * First unofficial release (inspired by ispell-da 1.4.42-1).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri,  8 Oct 2004 21:54:38 +0200

@@ -1,0 +1,75 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+# Copyright © 2003-2008,2010 Jonas Smedegaard <dr@jones.dk>
+# Description: Main Debian packaging script for Den Store Danske Ordliste
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Suppress optional build-dependencies
+CDBS_BUILD_DEPENDS_upstream-tarball =
+CDBS_BUILD_DEPENDS_rules_buildinfo =
+
+include /usr/share/cdbs/1/rules/upstream-tarball.mk
+include /usr/share/cdbs/1/rules/utils.mk
+include /usr/share/cdbs/1/class/makefile.mk
+include debian/cdbs/1/class/dict.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+DEB_UPSTREAM_URL = http://da.speling.org/filer
+DEB_UPSTREAM_TARBALL_MD5 = d25fb65f67c8a76144e5e0f532a631b9
+
+DEB_MAKE_BUILD_TARGET = all
+DEB_INSTALL_DOCS_ALL += contributors
+
+DEB_DICT_LANG = danish
+DEB_DICT_NATIVELANG = dansk
+DEB_DICT_LANGCODE = da
+DEB_DICT_COUNTRYCODE = DK
+
+# upstream build routines by default use old aspell layout
+DEB_ASPELL_DIR = new_aspell
+
+# Make sure to always build in a reproducible and working
+# language environment
+LC_ALL = C
+export LC_ALL
+
+install/aspell-da::
+	rm debian/$(cdbs_curpkg)/usr/lib/aspell/da.rws
+	mkdir -p debian/$(cdbs_curpkg)/usr/share/aspell
+	gzip -nc --best new_aspell/da.cwl > debian/$(cdbs_curpkg)/usr/share/aspell/da.cwl.gz
+	installdeb-aspell -paspell-da
+
+binary-post-install/wdanish::
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/dict/$(DEB_DICT_LANG)"
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/README"
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/contributors"
+
+binary-post-install/idanish::
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/README"
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/contributors"
+
+binary-post-install/aspell-da::
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/README"
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/contributors"
+
+binary-post-install/myspell-da::
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/README"
+	recode l1..utf8 "debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/contributors"
+
+# Needed by upstream build process
+CDBS_BUILD_DEPENDS += , ispell (>= 3.3.02), perl
+
+# Needed by our packaging routines
+CDBS_BUILD_DEPENDS += , recode

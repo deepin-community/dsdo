@@ -1,0 +1,96 @@
+Source: dsdo
+Maintainer: Jonas Smedegaard <dr@jones.dk>
+Uploaders: Agustin Martin Domingo <agmartin@debian.org>
+Section: text
+Priority: optional
+Build-Depends: cdbs (>= 0.4.72~),
+               devscripts (>= 2.10.7~),
+               aspell (>= 0.60.3-2),
+               dictionaries-common-dev (>= 1.23.2),
+               debhelper (>= 10),
+               dh-buildinfo,
+               ispell (>= 3.3.02),
+               perl,
+               recode
+Standards-Version: 4.1.4
+Vcs-Browser: https://salsa.debian.org/debian/dsdo
+Vcs-Git: https://salsa.debian.org/debian/dsdo.git
+Homepage: http://da.speling.org/
+
+Package: idanish
+Architecture: any
+Depends: ${misc:Depends},
+         ispell (>= 3.3.02),
+         dictionaries-common
+Suggests: wdanish
+Provides: ispell-dictionary
+Description: The Comprehensive Danish Dictionary (DSDO) - ispell
+ The Comprehensive Danish Dictionary (DSDO) is a free spell-checking
+ dictionary for Danish published by Skaane Sjaelland Linux User Group
+ (SSLUG).  One thing which makes this dictionary different from most
+ other dictionaries is that it basically is the result of a vote among
+ the proof-readers.  The editorial group has _not_ proof-read all the
+ words in the dictionary, but guides the proof-readers and keeps track
+ of the overall status of the dictionary.
+ .
+ This is the Danish dictionary, to be used with ispell to check and
+ correct spelling in Danish texts.
+
+Package: wdanish
+Architecture: all
+Depends: ${misc:Depends},
+         dictionaries-common
+Provides: wordlist
+Description: The Comprehensive Danish Dictionary (DSDO) - wordlist
+ The Comprehensive Danish Dictionary (DSDO) is a free spell-checking
+ dictionary for Danish published by Skaane Sjaelland Linux User Group
+ (SSLUG).  One thing which makes this dictionary different from most
+ other dictionaries is that it basically is the result of a vote among
+ the proof-readers.  The editorial group has _not_ proof-read all the
+ words in the dictionary, but guides the proof-readers and keeps track
+ of the overall status of the dictionary.
+ .
+ This is a flat list of Danish words and names. This can be used by
+ spellcheckers or any other purpose needing a lot of words.
+
+Package: aspell-da
+Architecture: all
+Depends: ${misc:Depends},
+         ${aspell:Depends}
+Provides: aspell-dictionary
+Description: The Comprehensive Danish Dictionary (DSDO) - aspell
+ The Comprehensive Danish Dictionary (DSDO) is a free spell-checking
+ dictionary for Danish published by Skaane Sjaelland Linux User Group
+ (SSLUG).  One thing which makes this dictionary different from most
+ other dictionaries is that it basically is the result of a vote among
+ the proof-readers.  The editorial group has _not_ proof-read all the
+ words in the dictionary, but guides the proof-readers and keeps track
+ of the overall status of the dictionary.
+ .
+ This is the Danish dictionary, to be used with aspell to check and
+ correct spelling in Danish texts.
+
+Package: myspell-da
+Architecture: all
+Depends: ${misc:Depends},
+         dictionaries-common (>= 0.10)
+Suggests: openoffice.org (>= 1.0.3-3),
+          mozilla-browser (>= 2:1.7),
+          mozilla-mailnews (>= 2:1.7),
+          mozilla-thunderbird
+Breaks: openoffice.org (<= 1.0.3-2)
+Conflicts: hunspell-da
+Provides: myspell-dictionary,
+          myspell-dictionary-da
+Multi-Arch: foreign
+Description: The Comprehensive Danish Dictionary (DSDO) - myspell
+ The Comprehensive Danish Dictionary (DSDO) is a free spell-checking
+ dictionary for Danish published by Skaane Sjaelland Linux User Group
+ (SSLUG).  One thing which makes this dictionary different from most
+ other dictionaries is that it basically is the result of a vote among
+ the proof-readers.  The editorial group has _not_ proof-read all the
+ words in the dictionary, but guides the proof-readers and keeps track
+ of the overall status of the dictionary.
+ .
+ This is the Danish dictionary, to be used with myspell to check and
+ correct spelling in Danish texts.
